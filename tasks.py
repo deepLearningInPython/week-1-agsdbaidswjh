@@ -13,8 +13,11 @@ import numpy
 # Your code here:
 # -----------------------------------------------
 
-def step
-
+def step(num):
+    if num > 0:
+        return 1
+    else:
+        return -1
 
 # -----------------------------------------------
 
@@ -28,8 +31,10 @@ def step
 
 # Your code here:
 # -----------------------------------------------
-def ReLu
-
+def ReLu(vector, cutoff=0):
+    result = vector.copy()
+    result[result < cutoff] = cutoff
+    return result
 
 # -----------------------------------------------
 
@@ -44,7 +49,20 @@ def ReLu
 # Your code here:
 # -----------------------------------------------
 
-def neural_net_layer
+def neural_net_layer(matrix, vector):
+    if matrix.shape[1] != vector.shape[0]:
+        raise ValueError("Incompatible shapes for matrix multiplication.")
+    
+    result = numpy.zeros(matrix.shape[0])
+    for i in range(matrix.shape[0]):
+        product = 0
+        for j in range(matrix.shape[1]):
+            product += matrix[i][j] * vector[j]
+        result[i] = product
 
+    # or using numpy
+    # result = numpy.dot(matrix, vector)
+
+    return ReLu(result)
 
 # ------------------------------------------
